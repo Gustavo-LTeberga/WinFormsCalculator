@@ -23,10 +23,10 @@ This project allows users to perform basic arithmetic operations including addit
 ![Empty Calculator](calculator_empty.png)
 
 ### 2. Calculator showing an operation `9 / 2`
-![Calculator with Operation](calculator_operation.png)
+![Calculator with Operation](calculator_result.png)
 
 ### 3. Calculator showing the result `4.5`
-![Calculator Result](calculator_result.png)
+![Calculator Result](calculator_operation.png)
 
 ---
 
