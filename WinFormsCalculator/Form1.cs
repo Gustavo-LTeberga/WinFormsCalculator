@@ -13,13 +13,15 @@ namespace WinFormsCalculator {
     public partial class Form1 : Form {
 
         bool operatorClicker = true;
-
         bool existDot = false;
-
-        bool existSubtract = false;
 
         public Form1() {
             InitializeComponent();
+        }
+
+        private void UpdateScreen() {
+            txbScreen.SelectionStart = txbScreen.Text.Length;
+            txbScreen.ScrollToCaret();
         }
 
         private void btnEquals_Click(object sender, EventArgs e) {
@@ -40,8 +42,7 @@ namespace WinFormsCalculator {
 
                     double result = Convert.ToDouble(rawresult, CultureInfo.InvariantCulture);
 
-                    txbScreen.Text = result.ToString("F7", CultureInfo.InvariantCulture);
-
+                    txbScreen.Text = result.ToString(CultureInfo.InvariantCulture);
 
                 }
 
@@ -57,9 +58,6 @@ namespace WinFormsCalculator {
                 txbScreen.Text = result.ToString(CultureInfo.InvariantCulture);
 
             }
-
-
-
         }
 
         private void number_Click(object sender, EventArgs e) {
@@ -67,6 +65,8 @@ namespace WinFormsCalculator {
             Button buttonClicked = (Button)sender;
 
             txbScreen.Text += buttonClicked.Text;
+
+            UpdateScreen();
 
             operatorClicker = false;
 
@@ -76,44 +76,34 @@ namespace WinFormsCalculator {
 
             Button buttonClicked = (Button)sender;
 
-            if (!operatorClicker || (buttonClicked.Text == "-" && !existSubtract)) {
-
-
-
-               
+            if (!operatorClicker || (buttonClicked.Text == "-" && txbScreen.Text == "")) {
 
                 txbScreen.Text += buttonClicked.Text;
-
+                UpdateScreen();
                 operatorClicker = true;
-
                 existDot = false;
-
-                existSubtract = true;
-
-
             }
-
-
+            
         }
 
         private void btnClear_Click(object sender, EventArgs e) {
 
             txbScreen.Text = null;
-
+            txbScreen.Focus();
             operatorClicker = true;
-
             existDot = false;
         }
 
         private void btnDot_Click(object sender, EventArgs e) {
 
-
             if ((txbScreen.Text == "" && !existDot) || (operatorClicker && !existDot)) {
                 txbScreen.Text += "0.";
+                UpdateScreen();
                 existDot = true;
             }
             else if (!existDot) {
                 txbScreen.Text += ".";
+                UpdateScreen();
                 existDot = true;
             }
 
@@ -121,8 +111,4 @@ namespace WinFormsCalculator {
 
     }
 
-
-
-
 }
-
